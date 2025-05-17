@@ -6,39 +6,59 @@ const bcrypt = require("bcrypt");
 // Import the promise-based MySQL pool from database config
 const db = require('../config/db');
 
-/**
- * Get a user by ID from the 'users' table.
- * @param {number} id - User ID
- * @returns {Object|null} - The user object or null if not found
- */
+
+ //Get a user by ID from the 'users' table.
+ //param {number} id - User ID
+ //returns {Object|null} - The user object or null if not found
 async function getUser(id) {
     const [rows] = await db.execute("SELECT * FROM users WHERE id = ?", [id]);
     return rows[0] || null; // Return user or null if not found
 }
 
 // Function to create a new user
-/**
- * Create a new user in the 'users' table.
- * @param {Object} user - User object containing name, email, and password
- * @returns {Object} - The newly created user object
- */
+// param {Object} user - User object containing name, email, and password
+// returns {Object} - The newly created user object
 async function createUser(user) {
-  // Make sure to hash password before inserting (optional, but recommended)
+    // hash password before inserting
+    const { name, email, password } = user;
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const [result] = await db.execute(
+        "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
+        [name, email, hashedPassword]
+    );
+    return {
+        id: result.insertId,
+        name,
+        email,
+    };
+}
+
+async function updateUser(id, user) {
   const { name, email, password } = user;
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  // Optionally hash password if provided
+  let hashedPassword = null;
+  if (password) {
+    hashedPassword = await bcrypt.hash(password, 10);
+  }
 
-  const [result] = await db.execute(
-    "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
-    [name, email, hashedPassword]
-  );
+  const query = hashedPassword
+    ? "UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?"
+    : "UPDATE users SET name = ?, email = ? WHERE id = ?";
 
-  // Return the newly created user
-  return {
-    id: result.insertId,
-    name,
-    email,
-  };
+  const params = hashedPassword
+    ? [name, email, hashedPassword, id]
+    : [name, email, id];
+
+  await db.execute(query, params);
+
+  return { id, name, email };
+}
+
+async function deleteUser(id) {
+  await db.execute("DELETE FROM users WHERE id = ?", [id]);
 }
 
 
@@ -47,4 +67,6 @@ async function createUser(user) {
 module.exports = {
     getUser,
     createUser,
+    updateUser,
+    deleteUser,
 };

@@ -26,10 +26,32 @@ async function createUser(req, res, next) {
   }
 }
 
+async function updateUser(req, res, next) {
+  try {
+    const id = req.params.id;
+    const userData = req.body;
+    const updatedUser = await userModel.updateUser(id, userData);
+    res.json(updatedUser);
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function deleteUser(req, res, next) {
+  try {
+    const id = req.params.id;
+    await userModel.deleteUser(id);
+    res.status(204).send(); // 204 No Content
+  } catch (err) {
+    next(err);
+  }
+}
 
 
 // Export functions
 module.exports = {
     getUserById,
     createUser,
+    updateUser,
+    deleteUser,
 };

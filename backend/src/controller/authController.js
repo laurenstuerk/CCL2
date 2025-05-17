@@ -1,10 +1,12 @@
+// File: src/controller/authController.js
+
 const db = require('../config/db');
 const { hashPassword, comparePassword } = require('../utils/hash');
 const { generateToken } = require('../utils/jwt');
 
 async function register(req, res, next) {
   try {
-    const { username, email, password } = req.body;
+    const { name, surname, username, email, password } = req.body;
 
     // Check if user already exists
     const [existingUsers] = await db.execute('SELECT * FROM users WHERE email = ?', [email]);
@@ -15,8 +17,8 @@ async function register(req, res, next) {
     const hashed = await hashPassword(password);
 
     const [result] = await db.execute(
-      'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
-      [username, email, hashed]
+      'INSERT INTO users (name, surname, username, email, password) VALUES (?, ?, ?, ?, ?)',
+      [name, surname, username, email, hashed]
     );
 
     // Optionally return new user id or info

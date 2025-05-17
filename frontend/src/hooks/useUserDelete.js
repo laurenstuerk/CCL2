@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { deleteUser } from '../services/apiService';
+import { deleteUser } from '../api/userApi';
 
 export function useUserDelete({ onSuccess } = {}) {
     const navigate = useNavigate();

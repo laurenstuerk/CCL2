@@ -1,21 +1,21 @@
 // backend/config/db.js
 
 //Load environment variables
-require('dotenv').config
+require('dotenv').config();
 
 //Use mysql2/promise for async/await support
-const mysql = require('mysql/promise')
+const mysql = require('mysql2/promise')
 
 //Create a connection pool
 const pool = mysql.createPool({
-     HOST: process.env.DB_HOST,
-     PORT: process.env.DB_PORT,
-     USER: process.env.DB_USER,
-     PASSWORD: process.env.DB_PASSWORD,
-     DB: process.env.DB_NAME,
-     waitForConnection: true,
-     connectionLimit: 10,
-     queueLimit: 0,
+    host: process.env.DB_HOST,
+    port: 8007,
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: 'cc241049',
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
 });
 
 //Test the connection
@@ -28,4 +28,5 @@ pool.getConnection()
         console.error('❌ Error connecting to the database:', error);
     });
 
-modeul.export = pool;
+
+module.exports = pool;

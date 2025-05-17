@@ -7,58 +7,39 @@ const bcrypt = require("bcrypt");
 const db = require('../config/db');
 
 
- //Get a user by ID from the 'users' table.
- //param {number} id - User ID
- //returns {Object|null} - The user object or null if not found
+//Get a user by ID from the 'users' table.
+//param {number} id - User ID
+//returns {Object|null} - The user object or null if not found
 async function getUser(id) {
     const [rows] = await db.execute("SELECT * FROM users WHERE id = ?", [id]);
     return rows[0] || null; // Return user or null if not found
 }
 
-// Function to create a new user
-// param {Object} user - User object containing name, email, and password
-// returns {Object} - The newly created user object
-async function createUser(user) {
-    // hash password before inserting
-    const { name, email, password } = user;
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const [result] = await db.execute(
-        "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
-        [name, email, hashedPassword]
-    );
-    return {
-        id: result.insertId,
-        name,
-        email,
-    };
-}
 
 async function updateUser(id, user) {
-  const { name, email, password } = user;
+    const { name, email, password } = user;
 
-  // Optionally hash password if provided
-  let hashedPassword = null;
-  if (password) {
-    hashedPassword = await bcrypt.hash(password, 10);
-  }
+    // Optionally hash password if provided
+    let hashedPassword = null;
+    if (password) {
+        hashedPassword = await bcrypt.hash(password, 10);
+    }
 
-  const query = hashedPassword
-    ? "UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?"
-    : "UPDATE users SET name = ?, email = ? WHERE id = ?";
+    const query = hashedPassword
+        ? "UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?"
+        : "UPDATE users SET name = ?, email = ? WHERE id = ?";
 
-  const params = hashedPassword
-    ? [name, email, hashedPassword, id]
-    : [name, email, id];
+    const params = hashedPassword
+        ? [name, email, hashedPassword, id]
+        : [name, email, id];
 
-  await db.execute(query, params);
+    await db.execute(query, params);
 
-  return { id, name, email };
+    return { id, name, email };
 }
 
 async function deleteUser(id) {
-  await db.execute("DELETE FROM users WHERE id = ?", [id]);
+    await db.execute("DELETE FROM users WHERE id = ?", [id]);
 }
 
 
@@ -66,7 +47,6 @@ async function deleteUser(id) {
 // Export all model functions for use in controllers
 module.exports = {
     getUser,
-    createUser,
     updateUser,
     deleteUser,
 };

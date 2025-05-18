@@ -2,8 +2,6 @@
 import { useEffect, useState } from 'react';
 import { getUserByUsername } from '../../services/userApi';
 import ProfileLayout from '../../components/ProfileLayout';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import ErrorMessage from '../../components/ErrorMessage';
 
 export default function PublicProfilePage({ username }) {
   const [user, setUser] = useState(null);
@@ -11,9 +9,9 @@ export default function PublicProfilePage({ username }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-
     const fetchUser = async () => {
+      const token = localStorage.getItem('token');
+
       try {
         const data = await getUserByUsername(token, username);
         setUser(data);
@@ -27,8 +25,8 @@ export default function PublicProfilePage({ username }) {
     fetchUser();
   }, [username]);
 
-  if (isLoading) return <LoadingSpinner />;
-  if (error) return <ErrorMessage error={error} />;
+  if (isLoading) return "laoding";
+  // if (error) return <ErrorMessage error={error} />;
   if (!user) return null;
 
   return <ProfileLayout user={user} />;

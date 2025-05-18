@@ -51,7 +51,7 @@ async function login(req, res, next) {
     }
 
     // Generate JWT token (you can put user id and email inside)
-    const token = generateToken({ id: user.id, email: user.email, role: user.role });
+    const token = generateToken({ id: user.id, email: user.email, role: user.role, username: user.username });
 
     res.json({ token, user: { id: user.id, username: user.username, email: user.email } });
   } catch (err) {

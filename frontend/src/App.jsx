@@ -10,20 +10,19 @@ import Footer from "./components/Footer";
 import Dashboard from "./pages/Dashboard.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
-import ProfilePage from "./pages/ProfilePage.jsx";
-import UserProfilePage from "./pages/UserProfilePage.jsx";
+import ProfileRouter from "./features/profile/ProfileRouter";
 
 export default function App() {
   return (
     <Router>
-      {/* <Navbar /> */}
+      <Navbar />
       <Routes>
         {/* 🌐 Public routes 🔓 */}
-
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
 
+        {/* 🔒 Protected routes */}
         <Route
           path="/dashboard"
           element={
@@ -37,13 +36,14 @@ export default function App() {
           path="/:username"
           element={
             <ProtectedRoute>
-              <ProfileRouter  />
+              <ProfileRouter />
             </ProtectedRoute>
           }
         />
 
         <Route path="*" element={<ErrorPage />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }

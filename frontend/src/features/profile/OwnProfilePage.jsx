@@ -30,7 +30,7 @@ export default function OwnProfilePage() {
     fetchUser();
   }, []);
 
-  if (isLoading) return <LoadingSpinner />;
+  // if (isLoading) return <LoadingSpinner />;
   if (error) return <ErrorMessage error={error} />;
   if (!user) return null;
 

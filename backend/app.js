@@ -7,6 +7,7 @@ const morgan = require("morgan");
 // Import routes
 const userRoutes = require("./src/routes/userRoutes");
 const authRoutes = require('./src/routes/authRoutes');
+const adminRoutes = require('./src/routes/adminRoutes');
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use("/api/users", userRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Root test route
 app.get("/", (req, res) => {

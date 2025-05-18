@@ -1,18 +1,46 @@
+//controller/adminController.js
+
 const bcrypt = require('bcrypt');
-const userModel = require('../models/adminModels');
+const adminModel = require('../models/adminModels');
+const userModel = require('../models/userModels');
 
-
-// Function to create a new user
-async function createUser(req, res, next) {
+async function getAllUsers(req, res, next) {
   try {
-    const userData = req.body; // expect JSON with user fields like {name, email, password}
-    const newUser = await userModel.createUser(userData);
-    res.status(201).json(newUser);
+    const users = await adminModel.getAllUsers();
+    res.status(200).json(users);
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function updateUserRole(req, res, next) {
+  try {
+    const { userId } = req.params;
+    const { role } = req.body;
+    
+    if (!['user', 'admin'].includes(role)) {
+      return res.status(400).json({ message: 'Invalid role' });
+    }
+
+    await adminModel.updateUserRole(userId, role);
+    res.status(200).json({ message: 'User role updated successfully' });
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function deleteUser(req, res, next) {
+  try {
+    const { userId } = req.params;
+    await userModel.deleteUser(userId);
+    res.status(200).json({ message: 'User deleted successfully' });
   } catch (err) {
     next(err);
   }
 }
 
 module.exports = {
-  createUser,
+  getAllUsers,
+  updateUserRole,
+  deleteUser
 };

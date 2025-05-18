@@ -35,6 +35,7 @@ async function updateUser(req, res, next) {
 async function deleteUser(req, res, next) {
     try {
         const id = parseInt(req.params.id);
+        const userId = req.user.id;
 
         if (id !== userId) {
             return res.status(403).json({ message: "Not allowed to delete this user." });

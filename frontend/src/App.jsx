@@ -8,7 +8,9 @@ import UserFormPage from "./pages/UserFormPage.jsx";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Dashboard from "./pages/Dashboard.jsx";
-import NotFoundPage from "./pages/NotFoundPage.jsx";
+import ErrorPage from "./pages/ErrorPage.jsx";
+import RegisterPage from "./pages/RegisterPage.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
 
 export default function App() {
   return (
@@ -18,54 +20,17 @@ export default function App() {
         {/* 🌐 Public routes 🔓 */}
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path="/register" element={<RegisterPage />} />
 
-        <Route
-          path="/home"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
+        {/* <Route element={<ProtectedRoute />}>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/:username" element={<PublicProfile />} />
+        </Route> */}
 
-        <Route
-          path="/users"
-          element={
-            <ProtectedRoute>
-              <UsersPage />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/users/:id"
-          element={
-            <ProtectedRoute>
-              <UserDetailPage />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/users/create"
-          element={
-            <ProtectedRoute>
-              <UserFormPage />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/users/:id/edit"
-          element={
-            <ProtectedRoute>
-              <UserFormPage />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
-      <Footer />
     </Router>
   );
 }

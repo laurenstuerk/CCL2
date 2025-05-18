@@ -8,10 +8,16 @@ async function register(req, res, next) {
   try {
     const { name, surname, username, email, password } = req.body;
 
-    // Check if user already exists
-    const [existingUsers] = await db.execute('SELECT * FROM users WHERE email = ?', [email]);
-    if (existingUsers.length > 0) {
-      return res.status(400).json({ message: 'User with this email already exists' });
+    // Check if email already exists
+    const [emailUsers] = await db.execute('SELECT * FROM users WHERE email = ?', [email]);
+    if (emailUsers.length > 0) {
+      return res.status(400).json({ message: 'Email already in use' });
+    }
+
+    // Check if username already exists
+    const [usernameUsers] = await db.execute('SELECT * FROM users WHERE username = ?', [username]);
+    if (usernameUsers.length > 0) {
+      return res.status(400).json({ message: 'Username already in use' });
     }
 
     const hashed = await hashPassword(password);
@@ -45,7 +51,7 @@ async function login(req, res, next) {
     }
 
     // Generate JWT token (you can put user id and email inside)
-    const token = generateToken({ id: user.id, email: user.email });
+    const token = generateToken({ id: user.id, email: user.email, role: user.role });
 
     res.json({ token, user: { id: user.id, username: user.username, email: user.email } });
   } catch (err) {

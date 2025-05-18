@@ -48,10 +48,21 @@ async function deleteUser(req, res, next) {
     }
 }
 
+async function getUserByUsername(req, res, next) {
+  try {
+    const { username } = req.params;
+    const [users] = await db.execute('SELECT id, name, surname, username, info, hero FROM users WHERE username = ?', [username]);
+    if (users.length === 0) return res.status(404).json({ message: 'User not found' });
+    res.json(users[0]);
+  } catch (err) {
+    next(err);
+  }
+}
 
 // Export functions
 module.exports = {
     getUserById,
     updateUser,
     deleteUser,
+    getUserByUsername,
 };

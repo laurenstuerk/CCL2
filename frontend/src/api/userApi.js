@@ -46,12 +46,12 @@ export const getUserById = async (token, id) => {
 };
 
 // Create new User
-export const createUser = async (token, userData) => {
-    const response = await fetch(`${BASE_URL}/users`, {
+export const register = async ( userData) => {
+    const response = await fetch(`${BASE_URL}/auth/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
+
         },
         body: JSON.stringify(userData),
     });
@@ -93,4 +93,18 @@ export const deleteUser = async (token, id) => {
         throw new Error(data.message || 'Create user failed');
     }
     return true;
+};
+
+// Get user by username
+export const getUserByUsername = async (token, username) => {
+    const response = await fetch(`${BASE_URL}/users/${username}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    });
+    if (!response.ok) {
+        throw new Error('Failed to fetch user (Username)');
+    }
+
+    return await response.json(); // Return user data
 };

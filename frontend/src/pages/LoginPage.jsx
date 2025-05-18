@@ -17,7 +17,7 @@ export default function LoginPage() {
         try {
             const data = await apiService.login(email, password)
             login(data.token);
-            navigate('/users') // Redirect to users page after successful login
+            navigate('/dashboard') // Redirect to users page after successful login
         } catch (error) {
             setError(error.message)
         }

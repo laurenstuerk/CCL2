@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { createUser, updateUser, getUserById } from '../api/userApi.js';
+import { register, updateUser, getUserById } from '../api/userApi.js';
 
 export default function UsersFormPage() {
     const [userData, setUserData] = useState({ name: '', email: '' });
@@ -37,7 +37,7 @@ export default function UsersFormPage() {
             if (isEditMode) {
                 await updateUser(token, id, userData);
             } else {
-                await createUser(token, userData);
+                await register(token, userData);
             }
             navigate('/users');
         } catch (error) {

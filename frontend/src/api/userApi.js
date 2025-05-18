@@ -1,22 +1,18 @@
 const BASE_URL = 'http://localhost:3000/api';
 // `${BASE_URL}/...`
+import axios from 'axios';
 
 
 export const login = async (email, password) => {
-    const response = await fetch(`${BASE_URL}/auth/login`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({email, password}),
+  try {
+    const response = await axios.post(`${BASE_URL}/auth/login`, {
+      email,
+      password,
     });
-
-    if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Login failed');
-    }
-
-    return await response.json(); // Return login response (should contain token)
+    return response.data;
+  } catch (err) {
+    throw new Error(err.response?.data?.message || 'Login failed');
+  }
 };
 
 //Fetch all User

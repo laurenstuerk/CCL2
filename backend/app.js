@@ -11,7 +11,7 @@ const authRoutes = require('./src/routes/authRoutes');
 const app = express();
 
 const corsOptions = {
-  origin: 'http://localhost:5174', // or your deployed frontend domain
+  origin: 'http://localhost:5173', // or your deployed frontend domain
   credentials: true,
 };
 app.use(cors(corsOptions));

@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
-import * as apiService from '../api/userApi.js'
+import * as apiService from '../services/userApi.js'
 import {useUserDelete} from '../hooks/useUserDelete.js';
 import ConfirmationModal from '../components/ConfirmationModal.jsx';
 

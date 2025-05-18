@@ -18,7 +18,7 @@ async function getUser(id) {
 
 async function getUserByUsername(username) {
   const [rows] = await db.execute(
-    'SELECT id, username, name, surname, email, info, hero FROM users WHERE username = ?',
+    'SELECT id, username, name, surname, email, info FROM users WHERE username = ?',
     [username]
   );
   return rows[0]; // return user or undefined

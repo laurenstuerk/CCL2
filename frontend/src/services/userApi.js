@@ -97,7 +97,7 @@ export const deleteUser = async (token, id) => {
 
 // Get user by username
 export const getUserByUsername = async (token, username) => {
-    const response = await fetch(`${BASE_URL}/users/${username}`, {
+    const response = await fetch(`${BASE_URL}/users/username/${username}`, {
         headers: {
             'Authorization': `Bearer ${token}`,
         },

@@ -37,7 +37,7 @@ export default function App() {
           path="/:username"
           element={
             <ProtectedRoute>
-              <UserProfilePage />
+              <ProfileRouter  />
             </ProtectedRoute>
           }
         />

@@ -6,7 +6,7 @@ import reactRouterLogo from "../assets/images/reactRouterLogo.svg";
 import viteLogo from "../assets/images/viteLogo.svg";
 import blenderLogo from "../assets/images/blenderLogo.svg";
 import splineLogo from "../assets/images/splineLogo.png";
-import SplineScene from "../components/SplineScene.jsx";
+
 
 import { List, User, PlusCircle, Edit, Trash2, Globe } from "lucide-react";
 

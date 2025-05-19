@@ -4,7 +4,7 @@ import { Trophy, Box, Lock, Gamepad2, LayoutGrid, Move3D } from 'lucide-react';
 
 export default function HighlightsSection() {
   return (
-    <section className="w-full py-24 bg-slate-950 text-gray-100 px-4" aria-labelledby="highlights-heading">
+    <section id='highlights' className="w-full py-24 bg-slate-950 text-gray-100 px-4" aria-labelledby="highlights-heading">
       <div className="max-w-7xl mx-auto">
         <h2 id="highlights-heading" className="text-4xl font-bold text-center mb-12">
           Highlights
@@ -38,7 +38,7 @@ export default function HighlightsSection() {
             <p className="text-slate-300 text-sm mb-4">OTP verification, JWT tokens, and secure password hashing.</p>
             <div className="h-32 bg-gradient-to-br from-slate-700/40 to-slate-800/40 rounded-xl overflow-hidden flex items-center justify-center">
               <img 
-                src="https://miro.medium.com/v2/resize:fit:2560/1*5eFSxTWfrZHj9KLOnluvag.gif" 
+                src="https://i.pinimg.com/originals/c1/b8/e1/c1b8e17e184e23f17a73da983a50f723.gif" 
                 alt="Security Features" 
                 className="object-cover w-full h-full opacity-80 group-hover:scale-105 transition-transform duration-700"
               />

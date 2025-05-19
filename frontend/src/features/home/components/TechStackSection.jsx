@@ -13,7 +13,7 @@ const stack = [
 
 export default function TechStackSection() {
   return (
-    <section className="w-full py-20 bg-white text-gray-900 px-4" aria-labelledby="stack-heading">
+    <section className="w-full py-20 bg-neutral-900 text-gray-100 px-4" aria-labelledby="stack-heading">
       <div className="max-w-5xl mx-auto text-center">
         <h2 id="stack-heading" className="text-4xl font-bold mb-12">Tech Stack</h2>
         <div className="flex flex-wrap items-center justify-center gap-8">

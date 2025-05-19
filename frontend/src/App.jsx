@@ -1,16 +1,23 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import LoginPage from "./pages/LoginPage.jsx";
-import HomePage from "./pages/Homepage.jsx";
-import UsersPage from "./pages/UsersPage.jsx";
+
+// import UsersPage from "./pages/UsersPage.jsx";
+
+// import UserDetailPage from "./pages/UserDetailPage.jsx";
+// import UserFormPage from "./pages/UserFormPage.jsx";
+
+// Importing components
 import ProtectedRoute from "./components/ProtectedRoute";
-import UserDetailPage from "./pages/UserDetailPage.jsx";
-import UserFormPage from "./pages/UserFormPage.jsx";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Dashboard from "./pages/Dashboard.jsx";
-import ErrorPage from "./pages/ErrorPage.jsx";
-import RegisterPage from "./pages/RegisterPage.jsx";
+
+// Importing necessary pages
+import LoginPage from "./pages/public/LoginPage.jsx";
+import HomePage from "./pages/public/Homepage.jsx";
+import Dashboard from "./pages/user/Dashboard.jsx";
+import ErrorPage from "./pages/shared/ErrorPage.jsx";
+import RegisterPage from "./pages/public/RegisterPage.jsx";
 import ProfileRouter from "./features/profile/ProfileRouter";
+
 
 export default function App() {
   return (

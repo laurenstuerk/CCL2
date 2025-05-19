@@ -75,7 +75,7 @@ function Navbar() {
                                 <Link
                                     key={link.name}
                                     to={link.to}
-                                    className={`text-sm font-medium transition-colors duration-200
+                                    className={`text-base font-medium transition-colors duration-200
                                         ${location.pathname === link.to 
                                             ? 'text-neutral-100' 
                                             : 'text-neutral-400 hover:text-neutral-100'
@@ -91,7 +91,7 @@ function Navbar() {
                                 <div className="relative">
                                     <button
                                         onClick={() => setIsGamesOpen(!isGamesOpen)}
-                                        className="flex items-center gap-1 text-sm font-medium text-neutral-400 hover:text-neutral-100 transition-colors duration-200"
+                                        className="flex items-center gap-1 text-base font-medium text-neutral-400 hover:text-neutral-100 transition-colors duration-200"
                                         aria-expanded={isGamesOpen}
                                         aria-controls="games-menu"
                                     >
@@ -109,7 +109,7 @@ function Navbar() {
                                                 <Link
                                                     key={link.name}
                                                     to={link.to}
-                                                    className="block px-4 py-2 text-sm text-neutral-400 hover:text-neutral-100 hover:bg-neutral-800 transition-colors duration-200"
+                                                    className="block px-4 py-2 text-base text-neutral-400 hover:text-neutral-100 hover:bg-neutral-800 transition-colors duration-200"
                                                     role="menuitem"
                                                 >
                                                     {link.name}
@@ -128,7 +128,7 @@ function Navbar() {
                             username ? (
                                 <Link
                                     to={`/${username}`}
-                                    className="flex items-center gap-2 text-sm font-medium text-neutral-100 hover:text-neutral-300 transition-colors duration-200"
+                                    className="flex items-center gap-2 text-base font-medium text-neutral-100 hover:text-neutral-300 transition-colors duration-200"
                                     aria-label="View your profile"
                                 >
                                     <User size={20} />
@@ -137,7 +137,7 @@ function Navbar() {
                             ) : (
                                 <Link
                                     to="/login"
-                                    className="flex items-center gap-2 text-sm font-medium text-neutral-100 hover:text-neutral-300 transition-colors duration-200"
+                                    className="flex items-center gap-2 text-base font-medium text-neutral-100 hover:text-neutral-300 transition-colors duration-200"
                                     aria-label="Please log in again"
                                 >
                                     <User size={20} />
@@ -148,13 +148,13 @@ function Navbar() {
                             <>
                                 <Link
                                     to="/login"
-                                    className="text-sm font-medium text-neutral-100 hover:text-neutral-300 transition-colors duration-200"
+                                    className="text-base font-medium text-neutral-100 hover:text-neutral-300 transition-colors duration-200"
                                 >
                                     Log in
                                 </Link>
                                 <Link
                                     to="/register"
-                                    className="text-sm font-medium bg-neutral-800 hover:bg-neutral-700 text-neutral-100 px-4 py-2 rounded-lg transition-colors duration-200"
+                                    className="text-base font-medium bg-neutral-800 hover:bg-neutral-700 text-neutral-100 px-4 py-2 rounded-lg transition-colors duration-200"
                                 >
                                     Sign up
                                 </Link>

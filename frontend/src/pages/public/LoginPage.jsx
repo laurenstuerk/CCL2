@@ -1,7 +1,7 @@
 import {useState} from "react"
 import {useNavigate} from "react-router-dom"
-import * as apiService from '../services/userApi.js'
-import { useAuth } from '../context/AuthContext.jsx';
+import * as apiService from '../../services/userApi.js'
+import { useAuth } from '../../context/AuthContext.jsx';
 
 export default function LoginPage() {
     const [email, setEmail] = useState("test1@test.com")

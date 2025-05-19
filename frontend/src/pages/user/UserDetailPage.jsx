@@ -1,9 +1,9 @@
 // pages/UsersDetailPage.jsx
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { getUserById } from '../services/userApi.js';
-import { useUserDelete } from '../hooks/useUserDelete.js'; // Import the hook
-import ConfirmationModal from '../components/OTP.jsx'; // Import the modal component
+import { getUserById } from '../../services/userApi.js';
+import { useUserDelete } from '../../hooks/useUserDelete.js'; // Import the hook
+import ConfirmationModal from '../../components/OTP.jsx'; // Import the modal component
 
 
 export default function UsersDetailPage() {

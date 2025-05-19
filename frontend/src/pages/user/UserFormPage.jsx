@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { register, updateUser, getUserById } from '../services/userApi.js';
+import { register, updateUser, getUserById } from '../../services/userApi.js';
 
 export default function UsersFormPage() {
     const [userData, setUserData] = useState({ name: '', email: '' });

@@ -1,3 +1,4 @@
+// ProfileLayout.jsx
 export default function ProfileLayout({ user, showEdit = false, onEdit }) {
   return (
     <div className="min-h-screen bg-neutral-950">

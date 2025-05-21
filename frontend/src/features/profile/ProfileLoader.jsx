@@ -31,8 +31,8 @@ export default function PublicProfilePage() {
     fetchUser();
   }, [username]);
 
-  if (isLoading) return <LoadingSpinner />;
-  if (error) return <ErrorMessage error={error} />;
+  // if (isLoading) return <LoadingSpinner />;
+  // if (error) return <ErrorMessage error={error} />;
   if (!user) return null;
 
   return <ProfileLayout user={user} showEdit={isOwnProfile} />;

@@ -58,11 +58,11 @@ export default function OwnProfilePage() {
         <div>
           <div className="flex flex-col items-center mb-10">
             <div className="w-24 h-24 rounded-full bg-neutral-700 flex items-center justify-center text-4xl mb-4">
-              👤
+              <img src="{user.profilePicture}" alt="" />
             </div>
             <h2 className="text-xl font-semibold">{user.name} {user.surname}</h2>
             <p className="text-neutral-400">@{user.username}</p>
-            <p className="text-sm mt-2 text-amber-400">🏅 Rank: [Placeholder]</p>
+            <p className="text-sm mt-2 text-amber-400">{user.rank}</p>
           </div>
 
           <nav className="flex flex-col gap-2">

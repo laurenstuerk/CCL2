@@ -97,7 +97,7 @@ export const deleteUser = async (token, id) => {
 
 // Get user by username
 export const getUserByUsername = async (token, username) => {
-    const response = await fetch(`${BASE_URL}/users/username/${username}`, {
+    const response = await fetch(`${BASE_URL}/users/${username}`, {
         headers: {
             'Authorization': `Bearer ${token}`,
         },
@@ -107,4 +107,16 @@ export const getUserByUsername = async (token, username) => {
     }
 
     return await response.json(); // Return user data
+};
+
+export const getPublicUserByUsername = async (token, username) => {
+    const response = await fetch(`${BASE_URL}/users/public/${username}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    });
+    if (!response.ok) {
+        throw new Error('Failed to fetch user public');
+    }
+    return await response.json();
 };

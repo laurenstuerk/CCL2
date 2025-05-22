@@ -61,10 +61,24 @@ async function getUserByUsername(req, res, next) {
     }
 }
 
+async function getPublicUserByUsername(req, res, next) {
+    try {
+        const { username } = req.params;
+        const user = await userModel.getPublicUserByUsername(username);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json(user);
+    } catch (err) {
+        next(err);
+    }
+}
+
 // Export functions
 module.exports = {
     getUserById,
     updateUser,
     deleteUser,
     getUserByUsername,
+    getPublicUserByUsername,
 };

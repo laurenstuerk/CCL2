@@ -1,36 +1,37 @@
 // src/features/profile/PublicProfilePage.jsx
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { getUserByUsername } from "../../services/userApi";
 
 export default function PublicProfilePage({ username }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchUser() {
+    const fetchUser = async () => {
+      const token = localStorage.getItem("token");
+
       try {
-        const res = await axios.get(`/api/users/username/${username}`);
-        setUser(res.data);
-        console.log("API response:", res.data);
-      } catch (error) {
-        console.error("Failed to fetch user:", error);
+        const data = await getUserByUsername(token, username);
+        setUser(data);
+      } catch (err) {
+        // localStorage.removeItem("token");
+        // navigate("/login", { replace: true });
       } finally {
-        console.log(user);
         setLoading(false);
       }
-    }
+    };
 
     fetchUser();
-  }, [username]);
+  }, []);
 
   if (loading) return <p className="text-neutral-400">Loading profile...</p>;
   if (!user) return <p className="text-red-500">User not found.</p>;
 
   return (
-    <div className="max-w-3xl mx-auto px-6 py-8 pt-16">
+    <div className="max-w-3xl mx-auto px-6 py-8 pt-40">
       <div className="flex items-center gap-6 mb-10">
         <img
-          src={user.profilePicture}
+          src={user.profilePicture || `https://avatar.iran.liara.run/username?username=${user.name}+${user.surname}` }
           alt="Profile"
           className="w-28 h-28 rounded-full object-cover border border-neutral-700"
         />
@@ -39,6 +40,7 @@ export default function PublicProfilePage({ username }) {
             {user.name} {user.surname}
           </h2>
           <p className="text-neutral-400 text-sm">@{user.username}</p>
+          <p className="text-neutral-400 text-sm">{user.email}</p>
           <p className="text-sm text-neutral-400 mt-1">
             Rank: {user.rank || "Iron"}
           </p>

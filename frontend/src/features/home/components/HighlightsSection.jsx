@@ -165,7 +165,7 @@ export default function HighlightsSection() {
             </p>
             <div className="h-36 bg-gradient-to-br from-slate-700/40 to-slate-800/40 rounded-xl overflow-hidden flex items-center justify-center">
               <img
-                src="/api/placeholder/500/200"
+                // src="/api/placeholder/500/200"
                 alt="Analytics Dashboard"
                 className="object-cover w-full h-full opacity-80 group-hover:scale-105 transition-transform duration-700"
               />

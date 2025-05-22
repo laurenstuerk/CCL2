@@ -1,7 +1,8 @@
 import { useState, useEffect, use } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, User, ChevronDown } from "lucide-react";
-import logo from "../assets/logo.png";
+// import logo from "../assets/logo.png";
+import logo from "../assets/logo1.png";
 import { useAuth } from "../context/AuthContext.jsx";
 import { useScrollDirection } from "../hooks/useScrollDirection";
 import { getUsernameFromToken } from "../utils/auth";

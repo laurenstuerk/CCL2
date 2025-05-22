@@ -24,6 +24,14 @@ async function getUserByUsername(username) {
   return rows[0]; // return user or undefined
 }
 
+async function getPublicUserByUsername(username) {
+  const [rows] = await db.execute(
+    'SELECT id, name, surname, username, phoneNumber, email, role, info, `rank`, profilePicture FROM users WHERE username = ?',
+    [username]
+  );
+  return rows[0]; // return user or undefined
+}
+
 
 async function updateUser(id, user) {
     const { name, email, password } = user;
@@ -59,4 +67,5 @@ module.exports = {
     updateUser,
     deleteUser,
     getUserByUsername,
+    getPublicUserByUsername
 };

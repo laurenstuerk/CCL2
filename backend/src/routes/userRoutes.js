@@ -8,7 +8,8 @@ const { verifyToken } = require('../middleware/auth');
 router.get("/id/:id", verifyToken, userController.getUserById);
 
 // Get user by username
-router.get("/username/:username", verifyToken, userController.getUserByUsername);
+router.get("/:username", verifyToken, userController.getUserByUsername);
+router.get("/public/:username", verifyToken, userController.getPublicUserByUsername);
 
 // Update and delete user
 router.put("/:id", verifyToken, userController.updateUser);

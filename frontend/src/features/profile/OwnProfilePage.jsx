@@ -59,7 +59,7 @@ export default function OwnProfilePage() {
           <div className="flex flex-col items-center mb-10">
             <div className="w-24 h-24 rounded-full bg-neutral-700 flex items-center justify-center text-4xl mb-4">
               <img
-                src={user.profilePicture}
+                src={user.profilePicture || `https://avatar.iran.liara.run/username?username=${user.name}+${user.surname}` }
                 alt=""
                 className="rounded-full object-cover border border-neutral-700"
               />

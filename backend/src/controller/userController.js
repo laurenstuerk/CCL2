@@ -17,15 +17,17 @@ async function getUserById(req, res, next) {
 
 async function updateUser(req, res, next) {
     try {
+        const token = req.headers.authorization?.split(" ")[1];
         const id = parseInt(req.params.id);
         const userId = req.user.id;
+        const userData = req.body;
+
 
         if (id !== userId) {
             return res.status(403).json({ message: "Not allowed to update this user." });
         }
 
-        const userData = req.body;
-        const updatedUser = await userModel.updateUser(id, userData);
+        const updatedUser = await userModel.updateUser(token, id, userData);
         res.json(updatedUser);
     } catch (err) {
         next(err);
@@ -80,7 +82,6 @@ const uploadProfilePicture = async (req, res) => {
             return res.status(400).json({ message: "No file uploaded" });
         }
         const userId = req.user.id;
-        console.log("User ID:", userId);
         // Cloudinary automatically stores the file, and multer adds info to req.file
         const imageUrl = req.file.path;
         await userModel.updateProfilePicture(userId, imageUrl);

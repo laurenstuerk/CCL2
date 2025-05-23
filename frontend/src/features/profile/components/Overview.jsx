@@ -6,7 +6,7 @@ export default function Overview({ user }) {
       {/* Profile Header */}
       <div className="flex items-center gap-6 mb-10">
         <img
-          src={user.profilePicture}
+          src={user.profilePicture || `https://avatar.iran.liara.run/username?username=${user.name}+${user.surname}`}
           alt="Profile"
           className="w-28 h-28 rounded-full object-cover border border-neutral-700"
         />

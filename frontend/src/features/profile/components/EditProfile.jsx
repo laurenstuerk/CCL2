@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
-// import ProfileImageUploader from "../../../components/ProfileImageUploader";
+import { updateUser } from "../../../services/userApi";
+import { getUserIdFromToken } from "../../../utils/auth";
 
 export default function EditProfile({ user, onSave }) {
   const [formData, setFormData] = useState({
@@ -15,42 +16,48 @@ export default function EditProfile({ user, onSave }) {
 
   const [preview, setPreview] = useState(user.profilePicture || "");
   const fileInputRef = useRef(null);
-  const [profilePicUrl, setProfilePicUrl] = useState(user.profilePicture);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleUploadComplete = (url) => {
-    setProfilePicUrl(url); // for preview
-    setFormData((prev) => ({ ...prev, profilePicture: url })); // for save
-  };
+  const token = localStorage.getItem("token");
+  const userId = getUserIdFromToken();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      setFormData((prev) => ({ ...prev, profilePicture: file }));
+      // Preview locally immediately:
       const reader = new FileReader();
       reader.onloadend = () => setPreview(reader.result);
       reader.readAsDataURL(file);
+
+      try {
+        setFormData((prev) => ({ ...prev, profilePicture: file }));
+      } catch (err) {
+        console.error("Upload failed:", err);
+        // optionally notify user
+      }
     }
   };
 
-  const handleImageDrop = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      setFormData((prev) => ({ ...prev, profilePicture: file }));
-      const reader = new FileReader();
-      reader.onloadend = () => setPreview(reader.result);
-      reader.readAsDataURL(file);
-    }
-  };
+    setLoading(true);
+    setError(null);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (onSave) onSave(formData);
+    try {
+      await updateUser(token, userId, formData);
+      alert("Profile updated successfully");
+    } catch (err) {
+      console.error(err);
+      setError("Failed to update profile");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -61,23 +68,31 @@ export default function EditProfile({ user, onSave }) {
       <h2 className="text-3xl font-bold text-white text-center mb-6">
         Edit Profile
       </h2>
-
-      {/* // Profile Picture
+      // Profile Picture
       <div className="flex flex-col items-center space-y-2">
         <img
-          src={profilePicUrl || "https://via.placeholder.com/150"}
+          src={
+            preview ||
+            `https://avatar.iran.liara.run/username?username=${user.name}+${user.surname}`
+          }
           alt="Profile"
           className="w-32 h-32 rounded-full object-cover border border-neutral-700"
         />
-        <ProfileImageUploader
-          userId={user.id}
-          onUploadComplete={handleUploadComplete}
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          ref={fileInputRef}
+          className="hidden"
         />
-        <p className="text-sm text-neutral-400 text-center">
-          Click the button above to upload a new photo
-        </p>
-      </div> */}
-
+        <button
+          type="button"
+          onClick={() => fileInputRef.current.click()}
+          className="px-4 py-1 bg-neutral-700 hover:bg-neutral-600 rounded text-white text-sm"
+        >
+          Select Profile Picture
+        </button>
+      </div>
       {/* Input Fields */}
       <div className="grid sm:grid-cols-2 gap-6 text-white">
         <div>
@@ -156,7 +171,6 @@ export default function EditProfile({ user, onSave }) {
           />
         </div>
       </div>
-
       <div className="text-center mt-6">
         <button
           type="submit"

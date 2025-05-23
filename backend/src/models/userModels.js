@@ -4,8 +4,7 @@
 const bcrypt = require("bcrypt");
 
 // Import the promise-based MySQL pool from database config
-const db = require('../config/db');
-
+const db = require("../config/db");
 
 //Get a user by ID from the 'users' table.
 //param {number} id - User ID
@@ -15,10 +14,9 @@ async function getUser(id) {
   return rows[0] || null; // Return user or null if not found
 }
 
-
 async function getUserByUsername(username) {
   const [rows] = await db.execute(
-    'SELECT id, name, surname, username, phoneNumber, email, role, info, `rank`, profilePicture FROM users WHERE username = ?',
+    "SELECT id, name, surname, username, phoneNumber, email, role, info, `rank`, profilePicture FROM users WHERE username = ?",
     [username]
   );
   return rows[0]; // return user or undefined
@@ -26,33 +24,64 @@ async function getUserByUsername(username) {
 
 async function getPublicUserByUsername(username) {
   const [rows] = await db.execute(
-    'SELECT id, name, surname, username, phoneNumber, email, role, info, `rank`, profilePicture FROM users WHERE username = ?',
+    "SELECT id, name, surname, username, phoneNumber, email, role, info, `rank`, profilePicture FROM users WHERE username = ?",
     [username]
   );
   return rows[0]; // return user or undefined
 }
 
+async function updateUser(token, id, userData = {}) {
+  const {
+    name,
+    surname,
+    username,
+    phoneNumber,
+    email,
+    country,
+    birthdate,
+    info,
+  } = userData;
 
-async function updateUser(id, user) {
-  const { name, email, password } = user;
+  let query = `
+    UPDATE users SET
+      name = ?,
+      surname = ?,
+      username = ?,
+      phoneNumber = ?,
+      email = ?,
+      country = ?,
+      birthdate = ?,
+      info = ?,
+  `;
 
-  // Optionally hash password if provided
-  let hashedPassword = null;
-  if (password) {
-    hashedPassword = await bcrypt.hash(password, 10);
-  }
+  const params = [
+    name || null,
+    surname || null,
+    username || null,
+    phoneNumber || null,
+    email || null,
+    country || null,
+    birthdate || null,
+    profilePicture || null,
+    info || null,
+  ];
 
-  const query = hashedPassword
-    ? "UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?"
-    : "UPDATE users SET name = ?, email = ? WHERE id = ?";
-
-  const params = hashedPassword
-    ? [name, email, hashedPassword, id]
-    : [name, email, id];
+  query += ` WHERE id = ?`;
+  params.push(id);
 
   await db.execute(query, params);
 
-  return { id, name, email };
+  return {
+    id,
+    name,
+    surname,
+    username,
+    phoneNumber,
+    email,
+    country,
+    birthdate,
+    info,
+  };
 }
 
 async function deleteUser(id) {
@@ -71,5 +100,5 @@ module.exports = {
   deleteUser,
   getUserByUsername,
   getPublicUserByUsername,
-  updateProfilePicture
+  updateProfilePicture,
 };

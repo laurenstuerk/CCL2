@@ -11,3 +11,17 @@ export function getUsernameFromToken() {
     return null;
   }
 }
+
+
+export function getUserIdFromToken() {
+  const token = localStorage.getItem('token');
+  if (!token) return null;
+
+  const payload = token.split('.')[1];
+  try {
+    const decoded = JSON.parse(atob(payload));
+    return decoded.id;
+  } catch (err) {
+    return null;
+  }
+}

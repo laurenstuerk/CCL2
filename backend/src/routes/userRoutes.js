@@ -13,7 +13,7 @@ router.post("/upload", verifyToken, upload.single("image"), userController.uploa
 
 // Get user by username
 router.get("/:username", verifyToken, userController.getUserByUsername);
-router.get("/public/:username", verifyToken, userController.getPublicUserByUsername);
+// router.get("/public/:username", verifyToken, userController.getPublicUserByUsername);
 
 // Update and delete user
 router.put("/:id", verifyToken, userController.updateUser);

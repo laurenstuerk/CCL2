@@ -61,9 +61,10 @@ export const register = async ( userData) => {
     return await response.json(); // Return the newly created user
 }
 
-// Update new User
+// Update User
 export const updateUser = async (token, id, userData) => {
-    const response = await fetch(`${BASE_URL}/${id}`, {
+    console.log(token, id, userData)
+    const response = await fetch(`${BASE_URL}/users/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -71,7 +72,6 @@ export const updateUser = async (token, id, userData) => {
         },
         body: JSON.stringify(userData),
     });
-    console.log(token, id, userData)
     if (!response.ok) {
         throw new Error('Failed to update user');
     }

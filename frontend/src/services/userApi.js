@@ -120,3 +120,22 @@ export const getPublicUserByUsername = async (token, username) => {
     }
     return await response.json();
 };
+
+export const uploadProfilePicture = async (token, imageFile) => {
+  const formData = new FormData();
+  formData.append("image", imageFile);
+
+  const response = await fetch(`${BASE_URL}/users/upload`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to upload image");
+  }
+
+  return await response.json(); // returns { imageUrl }
+};

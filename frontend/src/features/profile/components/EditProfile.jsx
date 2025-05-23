@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { updateUser } from "../../../services/userApi";
+import { updateUser, uploadProfilePicture } from "../../../services/userApi";
 import { getUserIdFromToken } from "../../../utils/auth";
 
 export default function EditProfile({ user, onSave }) {
@@ -34,22 +34,28 @@ export default function EditProfile({ user, onSave }) {
     setFormData((prev) => ({ ...prev, [name]: newValue }));
   };
 
-  const handleImageChange = async (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      // Preview locally immediately:
-      const reader = new FileReader();
-      reader.onloadend = () => setPreview(reader.result);
-      reader.readAsDataURL(file);
+const handleImageChange = async (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onloadend = () => setPreview(reader.result);
+    reader.readAsDataURL(file);
 
-      try {
-        setFormData((prev) => ({ ...prev, profilePicture: file }));
-      } catch (err) {
-        console.error("Upload failed:", err);
-        // optionally notify user
-      }
+    try {
+      setLoading(true);
+      const response = await uploadProfilePicture(token, file);
+      setFormData((prev) => ({
+        ...prev,
+        profilePicture: response.imageUrl,
+      }));
+    } catch (err) {
+      console.error("Upload failed:", err);
+      setError("Image upload failed");
+    } finally {
+      setLoading(false);
     }
-  };
+  }
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();

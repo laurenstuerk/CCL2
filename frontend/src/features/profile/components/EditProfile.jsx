@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import ProfileImageUploader from "../../../components/ProfileImageUploader";
+// import ProfileImageUploader from "../../../components/ProfileImageUploader";
 
 export default function EditProfile({ user, onSave }) {
   const [formData, setFormData] = useState({
@@ -62,7 +62,7 @@ export default function EditProfile({ user, onSave }) {
         Edit Profile
       </h2>
 
-      {/* Profile Picture */}
+      {/* // Profile Picture
       <div className="flex flex-col items-center space-y-2">
         <img
           src={profilePicUrl || "https://via.placeholder.com/150"}
@@ -76,7 +76,7 @@ export default function EditProfile({ user, onSave }) {
         <p className="text-sm text-neutral-400 text-center">
           Click the button above to upload a new photo
         </p>
-      </div>
+      </div> */}
 
       {/* Input Fields */}
       <div className="grid sm:grid-cols-2 gap-6 text-white">

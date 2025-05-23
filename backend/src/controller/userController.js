@@ -40,7 +40,7 @@ async function deleteUser(req, res, next) {
         if (id !== userId) {
             return res.status(403).json({ message: "Not allowed to delete this user." });
         }
-        
+
         await userModel.deleteUser(id);
         res.status(204).send(); // 204 No Content
     } catch (err) {
@@ -74,6 +74,26 @@ async function getPublicUserByUsername(req, res, next) {
     }
 }
 
+const uploadProfilePicture = async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ message: "No file uploaded" });
+        }
+        const userId = req.user.id;
+        console.log("User ID:", userId);
+        // Cloudinary automatically stores the file, and multer adds info to req.file
+        const imageUrl = req.file.path;
+        await userModel.updateProfilePicture(userId, imageUrl);
+
+        return res.status(200).json({ imageUrl });
+    } catch (error) {
+        console.error("Upload error:", error);
+        res.status(500).json({ message: "Something went wrong during upload" });
+    }
+};
+
+
+
 // Export functions
 module.exports = {
     getUserById,
@@ -81,4 +101,5 @@ module.exports = {
     deleteUser,
     getUserByUsername,
     getPublicUserByUsername,
+    uploadProfilePicture
 };

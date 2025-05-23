@@ -11,8 +11,8 @@ const db = require('../config/db');
 //param {number} id - User ID
 //returns {Object|null} - The user object or null if not found
 async function getUser(id) {
-    const [rows] = await db.execute("SELECT * FROM users WHERE id = ?", [id]);
-    return rows[0] || null; // Return user or null if not found
+  const [rows] = await db.execute("SELECT * FROM users WHERE id = ?", [id]);
+  return rows[0] || null; // Return user or null if not found
 }
 
 
@@ -34,38 +34,42 @@ async function getPublicUserByUsername(username) {
 
 
 async function updateUser(id, user) {
-    const { name, email, password } = user;
+  const { name, email, password } = user;
 
-    // Optionally hash password if provided
-    let hashedPassword = null;
-    if (password) {
-        hashedPassword = await bcrypt.hash(password, 10);
-    }
+  // Optionally hash password if provided
+  let hashedPassword = null;
+  if (password) {
+    hashedPassword = await bcrypt.hash(password, 10);
+  }
 
-    const query = hashedPassword
-        ? "UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?"
-        : "UPDATE users SET name = ?, email = ? WHERE id = ?";
+  const query = hashedPassword
+    ? "UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?"
+    : "UPDATE users SET name = ?, email = ? WHERE id = ?";
 
-    const params = hashedPassword
-        ? [name, email, hashedPassword, id]
-        : [name, email, id];
+  const params = hashedPassword
+    ? [name, email, hashedPassword, id]
+    : [name, email, id];
 
-    await db.execute(query, params);
+  await db.execute(query, params);
 
-    return { id, name, email };
+  return { id, name, email };
 }
 
 async function deleteUser(id) {
-    await db.execute("DELETE FROM users WHERE id = ?", [id]);
+  await db.execute("DELETE FROM users WHERE id = ?", [id]);
 }
 
-
+async function updateProfilePicture(userId, imageUrl) {
+  const query = "UPDATE users SET profilePicture = ? WHERE id = ?";
+  await db.execute(query, [imageUrl, userId]);
+}
 
 // Export all model functions for use in controllers
 module.exports = {
-    getUser,
-    updateUser,
-    deleteUser,
-    getUserByUsername,
-    getPublicUserByUsername
+  getUser,
+  updateUser,
+  deleteUser,
+  getUserByUsername,
+  getPublicUserByUsername,
+  updateProfilePicture
 };

@@ -24,7 +24,14 @@ export default function EditProfile({ user, onSave }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    let newValue = value;
+
+    if (name === "username") {
+      newValue = value.toLowerCase().replace(/\s+/g, ""); // remove spaces and lowercase
+    }
+
+    setFormData((prev) => ({ ...prev, [name]: newValue }));
   };
 
   const handleImageChange = async (e) => {
@@ -68,7 +75,6 @@ export default function EditProfile({ user, onSave }) {
       <h2 className="text-3xl font-bold text-white text-center mb-6">
         Edit Profile
       </h2>
-      // Profile Picture
       <div className="flex flex-col items-center space-y-2">
         <img
           src={
@@ -101,6 +107,7 @@ export default function EditProfile({ user, onSave }) {
           </label>
           <input
             name="name"
+            required
             value={formData.name}
             onChange={handleChange}
             className="w-full p-2 rounded bg-neutral-800 border border-neutral-700"
@@ -112,6 +119,7 @@ export default function EditProfile({ user, onSave }) {
           </label>
           <input
             name="surname"
+            required
             value={formData.surname}
             onChange={handleChange}
             className="w-full p-2 rounded bg-neutral-800 border border-neutral-700"
@@ -123,6 +131,9 @@ export default function EditProfile({ user, onSave }) {
           </label>
           <input
             name="username"
+            required
+            pattern="[a-z0-9_]+"
+            title="Only lowercase letters, numbers, and underscores. No spaces."
             value={formData.username}
             onChange={handleChange}
             className="w-full p-2 rounded bg-neutral-800 border border-neutral-700"
@@ -144,6 +155,7 @@ export default function EditProfile({ user, onSave }) {
           <input
             type="email"
             name="email"
+            required
             value={formData.email}
             onChange={handleChange}
             className="w-full p-2 rounded bg-neutral-800 border border-neutral-700"
@@ -154,6 +166,16 @@ export default function EditProfile({ user, onSave }) {
           <input
             name="country"
             value={formData.country}
+            onChange={handleChange}
+            className="w-full p-2 rounded bg-neutral-800 border border-neutral-700"
+          />
+        </div>
+        <div>
+          <label className="block mb-1 text-sm text-neutral-400">Info</label>
+          <textarea
+            name="info"
+            type="text"
+            value={formData.info}
             onChange={handleChange}
             className="w-full p-2 rounded bg-neutral-800 border border-neutral-700"
           />

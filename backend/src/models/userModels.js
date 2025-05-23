@@ -51,7 +51,7 @@ async function updateUser(token, id, userData = {}) {
       email = ?,
       country = ?,
       birthdate = ?,
-      info = ?,
+      info = ?
   `;
 
   const params = [
@@ -62,8 +62,7 @@ async function updateUser(token, id, userData = {}) {
     email || null,
     country || null,
     birthdate || null,
-    profilePicture || null,
-    info || null,
+    info || null
   ];
 
   query += ` WHERE id = ?`;

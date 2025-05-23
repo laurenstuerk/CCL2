@@ -2,6 +2,7 @@
 
 // Import the user model to interact with the database
 const userModel = require('../models/userModels');
+const cloudinary = require("../config/cloudinary");
 
 
 // Function to get user details by ID
@@ -76,21 +77,39 @@ async function getPublicUserByUsername(req, res, next) {
     }
 }
 
-const uploadProfilePicture = async (req, res) => {
-    try {
-        if (!req.file) {
-            return res.status(400).json({ message: "No file uploaded" });
-        }
-        const userId = req.user.id;
-        // Cloudinary automatically stores the file, and multer adds info to req.file
-        const imageUrl = req.file.path;
-        await userModel.updateProfilePicture(userId, imageUrl);
 
-        return res.status(200).json({ imageUrl });
-    } catch (error) {
-        console.error("Upload error:", error);
-        res.status(500).json({ message: "Something went wrong during upload" });
+const uploadProfilePicture = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded" });
     }
+
+    const userId = req.user.id;
+
+    // Step 1: Get current user info to retrieve old image
+    const user = await userModel.getUser(userId);
+    const oldImageUrl = user?.profilePicture;
+    
+    console.log("profilePicture:", user?.profilePicture);
+
+    console.log("Old image URL:", oldImageUrl);
+
+    // Step 2: Delete old image from Cloudinary (if it exists)
+    if (oldImageUrl && oldImageUrl.includes("cloudinary.com")) {
+      const publicId = oldImageUrl.split("/").slice(-1)[0].split(".")[0];
+      await cloudinary.uploader.destroy(`profile-pictures/${publicId}`);
+    }
+    // Step 3: Upload and get new image URL from multer (Cloudinary already handled this)
+    const imageUrl = req.file.path;
+
+    // Step 4: Update DB
+    await userModel.updateProfilePicture(userId, imageUrl);
+
+    return res.status(200).json({ imageUrl });
+  } catch (error) {
+    console.error("Upload error:", error);
+    res.status(500).json({ message: "Something went wrong during upload" });
+  }
 };
 
 

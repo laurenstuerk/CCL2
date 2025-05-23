@@ -18,8 +18,8 @@ export default function EditProfile({ user, onSave }) {
   const [profilePicUrl, setProfilePicUrl] = useState(user.profilePicture);
 
   const handleUploadComplete = (url) => {
-    setProfilePicUrl(url);
-    // Optional: send `url` to your backend to update user's profile picture
+    setProfilePicUrl(url); // for preview
+    setFormData((prev) => ({ ...prev, profilePicture: url })); // for save
   };
 
   const handleChange = (e) => {
@@ -63,31 +63,18 @@ export default function EditProfile({ user, onSave }) {
       </h2>
 
       {/* Profile Picture */}
-      <div
-        className="flex flex-col items-center space-y-2"
-        onDragOver={(e) => e.preventDefault()}
-        onDrop={handleImageDrop}
-      >
-        <div
-          className="w-28 h-28 rounded-full border-2 border-neutral-700 overflow-hidden cursor-pointer relative"
-          onClick={() => fileInputRef.current.click()}
-        >
-          <img
-            src={profilePicUrl || "https://via.placeholder.com/150"}
-            alt="Profile"
-            className="w-32 h-32 rounded-full object-cover border border-neutral-700"
-          />
-          <ProfileImageUploader userId={user.id} onUploadComplete={handleUploadComplete} />
-          <input
-            type="file"
-            accept="image/*"
-            ref={fileInputRef}
-            onChange={handleImageChange}
-            className="hidden"
-          />
-        </div>
+      <div className="flex flex-col items-center space-y-2">
+        <img
+          src={profilePicUrl || "https://via.placeholder.com/150"}
+          alt="Profile"
+          className="w-32 h-32 rounded-full object-cover border border-neutral-700"
+        />
+        <ProfileImageUploader
+          userId={user.id}
+          onUploadComplete={handleUploadComplete}
+        />
         <p className="text-sm text-neutral-400 text-center">
-          Click or drag to upload a new photo
+          Click the button above to upload a new photo
         </p>
       </div>
 

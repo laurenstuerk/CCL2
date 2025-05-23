@@ -63,7 +63,7 @@ export const register = async ( userData) => {
 
 // Update new User
 export const updateUser = async (token, id, userData) => {
-    const response = await fetch(`${BASE_URL}/users/${id}`, {
+    const response = await fetch(`${BASE_URL}/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 
 // Importing necessary pages
 import LoginPage from "./pages/public/LoginPage.jsx";
@@ -17,6 +18,9 @@ import Dashboard from "./pages/user/Dashboard.jsx";
 import ErrorPage from "./pages/shared/ErrorPage.jsx";
 import RegisterPage from "./pages/public/RegisterPage.jsx";
 import ProfileRouter from "./features/profile/ProfileRouter";
+
+// Admin imports
+import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
 
 
 export default function App() {
@@ -40,6 +44,15 @@ export default function App() {
         />
 
         <Route
+          path="/admin"
+          element={
+            <ProtectedAdminRoute>
+              <AdminDashboard />
+            </ProtectedAdminRoute>
+          }
+        />
+
+        <Route
           path="/:username"
           element={
             <ProtectedRoute>
@@ -47,6 +60,8 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+
+        {/* 🔐 Admin-only route */}
 
         <Route path="*" element={<ErrorPage />} />
       </Routes>

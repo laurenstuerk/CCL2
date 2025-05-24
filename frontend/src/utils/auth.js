@@ -25,3 +25,20 @@ export function getUserIdFromToken() {
     return null;
   }
 }
+
+
+export function getUserRoleFromStorage() {
+  return localStorage.getItem("role");
+};
+
+export const isAdmin = () => {
+  return getUserRoleFromStorage() === "admin";
+};
+ 
+export function getToken() {
+  return localStorage.getItem("token");
+}
+
+
+
+//what is better to store only the token or individal values in local storage

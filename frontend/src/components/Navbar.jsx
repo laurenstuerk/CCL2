@@ -6,6 +6,7 @@ import logo from "../assets/logo1.png";
 import { useAuth } from "../context/AuthContext.jsx";
 import { useScrollDirection } from "../hooks/useScrollDirection";
 import { getUsernameFromToken } from "../utils/auth";
+import { getUserRoleFromStorage } from "../utils/auth";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,6 +15,8 @@ function Navbar() {
   const location = useLocation();
   const scrollDirection = useScrollDirection();
   const username = getUsernameFromToken();
+  const role = getUserRoleFromStorage();
+  const isAdmin = role === "admin";
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -225,6 +228,18 @@ function Navbar() {
                   {link.name}
                 </Link>
               ))}
+              {isAdmin && (
+                <Link
+                  to="/admin"
+                  className={`text-base font-medium transition-colors duration-200 ${
+                    location.pathname === "/admin"
+                      ? "text-neutral-100"
+                      : "text-neutral-400 hover:text-neutral-100"
+                  }`}
+                >
+                  Admin
+                </Link>
+              )}
             </>
           )}
 

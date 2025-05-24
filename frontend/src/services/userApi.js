@@ -3,33 +3,17 @@ const BASE_URL = 'http://localhost:3000/api';
 import axios from 'axios';
 
 
-export const login = async (email, password) => {
-  try {
-    const response = await axios.post(`${BASE_URL}/auth/login`, {
-      email,
-      password,
-    });
-    return response.data;
-  } catch (err) {
-    throw new Error(err.response?.data?.message || 'Login failed');
-  }
-};
-
-//Fetch all User
-export const getAllUsers = async (token) => {
-    const response = await fetch(`${BASE_URL}/users`, {
-        headers: {
-            'Authorization': `Bearer ${token}`,
-        },
-    });
-    const data = await response.json();
-
-    if (!response.ok) {
-        throw new Error('Failed to fetch users');
-    }
-
-    return data; // Return users data
-};
+// export const login = async (email, password) => {
+//   try {
+//     const response = await axios.post(`${BASE_URL}/auth/login`, {
+//       email,
+//       password,
+//     });
+//     return response.data;
+//   } catch (err) {
+//     throw new Error(err.response?.data?.message || 'Login failed');
+//   }
+// };
 
 // get user by id
 export const getUserById = async (token, id) => {
@@ -45,21 +29,7 @@ export const getUserById = async (token, id) => {
     return await response.json(); // Return user data
 };
 
-// Create new User
-export const register = async ( userData) => {
-    const response = await fetch(`${BASE_URL}/auth/register`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
 
-        },
-        body: JSON.stringify(userData),
-    });
-    if (!response.ok) {
-        throw new Error('Failed to create new user');
-    }
-    return await response.json(); // Return the newly created user
-}
 
 // Update User
 export const updateUser = async (token, id, userData) => {

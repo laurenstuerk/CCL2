@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 /*---break---*/
-@custom-variant dark (&:is(.dark *));
+/* @custom-variant dark (&:is(.dark *)); */
 @font-face {
   font-family: 'GeistMono';
   src: url('./assets/fonts/GeistMono-VariableFont_wght.ttf') format('truetype');
@@ -24,7 +24,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #090909;
+  background-color: #000000;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -106,7 +106,7 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    background-color: #000000;
   }
   a:hover {
     color: #747bff;
@@ -194,11 +194,11 @@ button:focus-visible {
 
 /*---break---*/
 
-@layer base {
+/* @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
   }
-}
+} */

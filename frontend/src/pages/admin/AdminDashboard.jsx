@@ -21,6 +21,7 @@ export default function AdminDashboard() {
       const res = await axios.get("/api/admin/users", {
         headers: { Authorization: `Bearer ${token}` },
       });
+      console.log("Fetched users:", res.data);
       setUsers(res.data);
     } catch (err) {
       console.error("Failed to fetch users:", err);
@@ -31,8 +32,8 @@ export default function AdminDashboard() {
     fetchUsers();
   }, []);
 
-  const filteredUsers = users.filter(user =>
-    user.username.toLowerCase().includes(search.toLowerCase())
+  const filteredUsers = users.filter((user) =>
+     (user.username || "").toLowerCase().includes(search.toLowerCase())
   );
 
   const handleEdit = (user) => {
@@ -54,7 +55,7 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="p-4 max-w-7xl mx-auto">
+    <div className="p-4 max-w-7xl mx-auto pt-16 bg-black ">
       <div className="flex justify-between items-center mb-4 flex-wrap gap-2">
         <h1 className="text-2xl font-semibold">Manage Users</h1>
         <Input
@@ -69,6 +70,7 @@ export default function AdminDashboard() {
         <table className="min-w-full bg-neutral-900 text-white rounded-lg overflow-hidden shadow-sm">
           <thead className="bg-neutral-800">
             <tr>
+              <th className="px-4 py-2 text-left">id</th>
               <th className="px-4 py-2 text-left">Username</th>
               <th className="px-4 py-2 text-left">Email</th>
               <th className="px-4 py-2 text-left">Role</th>
@@ -81,6 +83,7 @@ export default function AdminDashboard() {
                 key={user.id}
                 className="border-b border-neutral-700 hover:bg-neutral-800"
               >
+                <td className="px-4 py-2">{user.id}</td>
                 <td className="px-4 py-2">{user.username}</td>
                 <td className="px-4 py-2">{user.email}</td>
                 <td className="px-4 py-2 capitalize">{user.role}</td>

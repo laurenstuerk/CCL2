@@ -112,7 +112,7 @@ export default function HighlightsSection() {
             </p>
             <div className="h-72 bg-gradient-to-br from-slate-700/40 to-slate-800/40 rounded-xl overflow-hidden flex items-center justify-center">
               <img
-                src="/api/placeholder/300/500"
+                // src="/api/placeholder/300/500"
                 alt="Leaderboard"
                 className="object-cover w-full h-full opacity-80 group-hover:scale-105 transition-transform duration-700"
               />
@@ -133,7 +133,7 @@ export default function HighlightsSection() {
             </p>
             <div className="h-32 bg-gradient-to-br from-slate-700/40 to-slate-800/40 rounded-xl overflow-hidden flex items-center justify-center">
               <img
-                src="/api/placeholder/300/200"
+                // src="/api/placeholder/300/200"
                 alt="3D Interactions"
                 className="object-cover w-full h-full opacity-80 group-hover:scale-105 transition-transform duration-700"
               />

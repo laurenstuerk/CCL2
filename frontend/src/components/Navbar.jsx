@@ -212,6 +212,15 @@ function Navbar() {
             </Link>
           ))}
 
+          {isAdmin && (
+            <Link
+              to="/admin"
+              className="text-base font-medium text-red-400 hover:text-white"
+            >
+              Admin
+            </Link>
+          )}
+
           {/* Mobile Games Menu - Only for logged in users */}
           {isLoggedIn && (
             <>
@@ -228,18 +237,6 @@ function Navbar() {
                   {link.name}
                 </Link>
               ))}
-              {isAdmin && (
-                <Link
-                  to="/admin"
-                  className={`text-base font-medium transition-colors duration-200 ${
-                    location.pathname === "/admin"
-                      ? "text-neutral-100"
-                      : "text-neutral-400 hover:text-neutral-100"
-                  }`}
-                >
-                  Admin
-                </Link>
-              )}
             </>
           )}
 

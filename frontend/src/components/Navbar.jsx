@@ -2,7 +2,7 @@ import { useState, useEffect, use } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, User, ChevronDown } from "lucide-react";
 // import logo from "../assets/logo.png";
-import logo from "../assets/logo1.png";
+import logo from "../assets/Logo4.png";
 import { useAuth } from "../context/AuthContext.jsx";
 import { useScrollDirection } from "../hooks/useScrollDirection";
 import { getUsernameFromToken } from "../utils/auth";
@@ -16,7 +16,6 @@ function Navbar() {
   const scrollDirection = useScrollDirection();
   const username = getUsernameFromToken();
   const role = getUserRoleFromStorage();
-  const isAdmin = role === "admin";
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -58,15 +57,15 @@ function Navbar() {
           <div className="flex-shrink-0">
             <Link
               to="/"
-              className="flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-neutral-400 rounded-lg p-1"
+              className="flex items-center gap-2 rounded-lg p-1"
               aria-label="Go to homepage"
             >
               <img
                 src={logo}
                 alt="CCL#2 Logo"
-                className="w-10 h-10 transition-transform duration-300 hover:rotate-12"
+                className="w-10 h-10 transition-transform duration-300 hover:rotate-60 hover:scale-110"
               />
-              <span className="text-xl font-medium text-neutral-100">
+              <span className="text-xl font-medium text-white hover:text-neutral-300 transition-colors duration-200">
                 CCL#2
               </span>
             </Link>
@@ -93,12 +92,23 @@ function Navbar() {
                 </Link>
               ))}
 
+              {/* Admin Links - Only for admin users */}
+              {isLoggedIn && role === "admin" && (
+                <Link
+                  to="/admin"
+                  className={`text-base font-medium transition-colors duration-200`}
+                >
+                  {" "}
+                  Admin Dashboard
+                </Link>
+              )}
+
               {/* Games Dropdown - Only for logged in users */}
               {isLoggedIn && (
                 <div className="relative">
-                  <button
+                  <a
                     onClick={() => setIsGamesOpen(!isGamesOpen)}
-                    className="flex items-center gap-1 text-base font-medium text-neutral-400 hover:text-neutral-100 transition-colors duration-200"
+                    className="flex items-center gap-1 text-base hover:text-neutral-100 transition-colors duration-200"
                     aria-expanded={isGamesOpen}
                     aria-controls="games-menu"
                   >
@@ -107,7 +117,7 @@ function Navbar() {
                       size={16}
                       className={`transition-transform duration-200 ${isGamesOpen ? "rotate-180" : ""}`}
                     />
-                  </button>
+                  </a>
 
                   {isGamesOpen && (
                     <div
@@ -211,15 +221,6 @@ function Navbar() {
               {link.name}
             </Link>
           ))}
-
-          {isAdmin && (
-            <Link
-              to="/admin"
-              className="text-base font-medium text-red-400 hover:text-white"
-            >
-              Admin
-            </Link>
-          )}
 
           {/* Mobile Games Menu - Only for logged in users */}
           {isLoggedIn && (

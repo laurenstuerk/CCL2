@@ -60,8 +60,8 @@ export default function OwnProfilePage() {
             <div className="w-24 h-24 rounded-full bg-neutral-700 flex items-center justify-center text-4xl mb-4">
               <img
                 src={user.profilePicture || `https://avatar.iran.liara.run/username?username=${user.name}+${user.surname}` }
-                alt=""
-                className="rounded-full object-cover border border-neutral-700"
+                alt="Profile Avatar"
+                className="rounded-full object-cover border border-neutral-700 bg-black"
               />
             </div>
             <h2 className="text-xl font-semibold">
@@ -126,21 +126,6 @@ export default function OwnProfilePage() {
           <Security />
         )}
         {activeSettingsTab === "Theme" && activeTab === "Theme" && <Theme />}
-
-        {/* Danger Zone only for settings pages */}
-        {SETTINGS_TABS.includes(activeTab) && (
-          <div className="mt-10">
-            <h2 className="text-lg font-semibold mb-4 text-red-500">
-              Danger Zone
-            </h2>
-            <button
-              onClick={handleDeleteAccount}
-              className="px-4 py-2 bg-red-700 hover:bg-red-800 text-white rounded-lg"
-            >
-              🗑️ Delete Account
-            </button>
-          </div>
-        )}
       </main>
     </div>
   );

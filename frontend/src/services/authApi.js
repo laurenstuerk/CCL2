@@ -1,6 +1,8 @@
+import axios from 'axios';
+import { toast } from 'sonner';
+
 const BASE_URL = 'http://localhost:3000/api';
 // `${BASE_URL}/...`
-import axios from 'axios';
 
 
 // export const login = async (email, password) => {
@@ -25,6 +27,7 @@ export const login = async (email, password) => {
     localStorage.setItem("token", response.data.token);
     localStorage.setItem("role", response.data.user.role);
     localStorage.setItem("userId", response.data.user.id);
+    toast.success('Login successful!');
     return response.data;
   } catch (err) {
     throw new Error(err.response?.data?.message || 'Login failed');

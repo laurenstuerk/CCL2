@@ -1,15 +1,11 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-// import UsersPage from "./pages/UsersPage.jsx";
-
-// import UserDetailPage from "./pages/UserDetailPage.jsx";
-// import UserFormPage from "./pages/UserFormPage.jsx";
-
 // Importing components
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
+import { Toaster, toast } from 'sonner'
 
 // Importing necessary pages
 import LoginPage from "./pages/public/LoginPage.jsx";
@@ -27,6 +23,7 @@ export default function App() {
   return (
     <Router>
       <Navbar />
+      <Toaster position="bottom-right" duration={4000} />
       <Routes>
         {/* 🌐 Public routes 🔓 */}
         <Route path="/" element={<HomePage />} />

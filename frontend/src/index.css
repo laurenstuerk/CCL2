@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "tw-animate-css";
+@plugin "daisyui";
 /*---break---*/
 /* @custom-variant dark (&:is(.dark *)); */
 @font-face {

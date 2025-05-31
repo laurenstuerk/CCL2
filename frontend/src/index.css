@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 /*---break---*/
 /* @custom-variant dark (&:is(.dark *)); */
 @font-face {
@@ -8,6 +9,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: 'Geist';
   src: url('./assets/fonts/Geist-VariableFont_wght.ttf') format('truetype');
@@ -21,9 +23,9 @@
   line-height: 1.5;
   font-weight: 400;
   background-color: black;
-  --color-base-100: rgb(10, 10, 10)
-  --color-base-200: rgb(23, 23, 23)
-  --color-base-300: rgb(38, 38, 38)
+  --color-base-100: rgb(10, 10, 10);
+  --color-base-200: rgb(23, 23, 23);
+  --color-base-300: rgb(38, 38, 38);
   --color-base-content: oklch(97.807% 0.029 256.847);
   --color-primary: oklch(58% 0.233 277.117);
   --color-primary-content: oklch(96% 0.018 272.314);

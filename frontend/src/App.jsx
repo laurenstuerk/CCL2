@@ -5,7 +5,7 @@ import { loadTheme } from "./utils/themes.js";
 // Importing components
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
-// import Footer from "./components/Footer";
+import Footer from "./components/Footer";
 import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 import { Toaster, toast } from "sonner";
 
@@ -69,7 +69,7 @@ export default function App() {
 
         <Route path="*" element={<ErrorPage />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </Router>
   );
 }

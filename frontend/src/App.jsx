@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useEffect } from 'react';
+import { loadTheme } from './utils/themes.js';
 
 // Importing components
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -20,6 +22,10 @@ import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
 
 
 export default function App() {
+    useEffect(() => {
+    loadTheme();
+  }, []);
+  
   return (
     <Router>
       <Navbar />

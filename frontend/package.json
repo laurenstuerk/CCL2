@@ -21,7 +21,6 @@
     "class-variance-authority": "^0.7.1",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
-    "daisyui": "^5.0.37",
     "lucide-react": "^0.508.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

@@ -8,6 +8,7 @@ const morgan = require("morgan");
 const userRoutes = require("./src/routes/userRoutes");
 const authRoutes = require('./src/routes/authRoutes');
 const adminRoutes = require('./src/routes/adminRoutes');
+const gameRoutes = require('./src/routes/gameRoutes');
 
 const app = express();
 
@@ -26,6 +27,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/users", userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/game', gameRoutes);
+
 
 // Root test route
 app.get("/", (req, res) => {

@@ -8,11 +8,12 @@ const morgan = require("morgan");
 const userRoutes = require("./src/routes/userRoutes");
 const authRoutes = require('./src/routes/authRoutes');
 const adminRoutes = require('./src/routes/adminRoutes');
+const gameRoutes = require('./src/routes/gameRoutes');
 
 const app = express();
 
 const corsOptions = {
-  origin: 'http://localhost:5173', // or your deployed frontend domain
+  origin: 'http://localhost:5173',
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -26,6 +27,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/users", userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/game', gameRoutes);
+
 
 // Root test route
 app.get("/", (req, res) => {

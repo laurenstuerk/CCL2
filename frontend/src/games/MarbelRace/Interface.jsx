@@ -2,6 +2,7 @@ import { useKeyboardControls } from "@react-three/drei";
 import useGame from "./stores/useGame.jsx";
 import { addEffect } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
+import { SubmitRaceTime } from "../../services/gameApi.js";
 
 export default function Interface() {
   const time = useRef();
@@ -14,29 +15,48 @@ export default function Interface() {
   const rightward = useKeyboardControls((state) => state.rightward);
   const jump = useKeyboardControls((state) => state.jump);
 
+  const submittedRef = useRef(false);
+  const { mutate } = SubmitRaceTime();
+  const userId = 1;
+
   useEffect(() => {
     const unsubscribeEffect = addEffect(() => {
       const state = useGame.getState();
       let elapsedTime = 0;
 
-      if (state.phase === "playing") elapsedTime = Date.now() - state.startTime;
-      else if (state.phase === "ended")
+      if (state.phase === "playing") {
+        elapsedTime = Date.now() - state.startTime;
+      } else if (state.phase === "ended") {
         elapsedTime = state.endTime - state.startTime;
+
+        // Only submit once
+        if (!submittedRef.current) {
+          submittedRef.current = true;
+          const seconds = (elapsedTime / 1000).toFixed(2);
+
+          mutate({ user_id: 1, time: seconds });
+        }
+      }
 
       elapsedTime /= 1000;
       elapsedTime = elapsedTime.toFixed(2);
-      console.log(elapsedTime)
       if (time.current) time.current.textContent = elapsedTime;
     });
 
-    return () => {
-      unsubscribeEffect();
-    };
+    return () => unsubscribeEffect();
   }, []);
+
+  useEffect(() => {
+    if (phase === "playing") {
+      submittedRef.current = false;
+    }
+  }, [phase]);
 
   return (
     <div className="interface">
-      <div ref={time} className="time">0.00</div>
+      <div ref={time} className="time">
+        0.00
+      </div>
 
       {phase === "ended" && (
         <div className="restart" onClick={restart}>

@@ -61,12 +61,12 @@ function Navbar() {
               aria-label="Go to homepage"
             >
               <img
-                src={logo}
-                alt="CCL#2 Logo"
-                className="w-10 h-10 transition-transform duration-300 hover:rotate-60 hover:scale-110"
+                src={"riplyxLogo.svg"}
+                alt="RIPLYX Logo"
+                className="w-10 h-10 transition-transform duration-300 hover:rotate-60 hover:scale-100"
               />
               <span className="text-xl font-medium text-white hover:text-neutral-300 transition-colors duration-200">
-                CCL#2
+                // RIPLYX
               </span>
             </Link>
           </div>

@@ -66,6 +66,11 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            <div className="flex justify-end mt-2">
+              <a href="#" className="text-sm text-blue-500 hover:underline">
+                Forgot Password?
+              </a>
+            </div>
           </div>
 
           <button
@@ -75,6 +80,21 @@ export default function LoginPage() {
             Login
           </button>
         </form>
+        
+        <div className="my-6 flex items-center">
+          <div className="flex-grow border-t border-neutral-700"></div>
+          <span className="mx-4 text-gray-400">or</span>
+          <div className="flex-grow border-t border-neutral-700"></div>
+        </div>
+
+        <GoogleLogin
+          onSuccess={(CredentialResponse) => {
+            console.log(CredentialResponse);
+            navigate("/dashboard");
+          }}
+          onError={() => alert(error)}
+          auto_select={true}
+        />
 
         <div className="flex items-center justify-between mt-6">
           <span className="text-sm text-gray-400">Don't have an account?</span>
@@ -85,18 +105,6 @@ export default function LoginPage() {
             Register
           </button>
         </div>
-
-        <div className="my-6 border-t border-neutral-700"></div>
-        <h2 className=" font-semibold text-center mb-4">Or Login with</h2>
-
-        <GoogleLogin
-          onSuccess={(CredentialResponse) => {
-            console.log(CredentialResponse);
-            navigate("/dashboard");
-          }}
-          onError={() => alert(error)}
-          auto_select={true}
-        />
       </div>
     </div>
   );

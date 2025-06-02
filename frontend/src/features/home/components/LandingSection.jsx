@@ -1,5 +1,6 @@
 // src/sections/LandingSection.jsx
 import { Link } from "react-router-dom";
+import Aurora from "../../../components/backgrounds/Aurora.jsx";
 
 export default function LandingSection() {
   return (
@@ -8,9 +9,18 @@ export default function LandingSection() {
       role="region"
       aria-labelledby="landing-heading"
     >
+      <Aurora
+        colorStops={["#30588c", "#73295a", "#FF3232"]}
+        blend={1}
+        amplitude={0.5}
+        speed={0.5}
+      />
       <div className="z-10 max-w-2xl animate-fade-in-up">
-        <h1 id="landing-heading" className="text-5xl md:text-7xl font-bold mb-6">
-          Creative Code Lab 2
+        <h1
+          id="landing-heading"
+          className="text-5xl md:text-7xl font-bold mb-6"
+        >
+          RIPLYX
         </h1>
         <p className="text-xl md:text-2xl text-slate-300 mb-8">
           Connect, explore, and challenge others with the power of 3D.

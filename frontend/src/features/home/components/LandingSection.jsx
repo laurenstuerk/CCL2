@@ -20,9 +20,9 @@ export default function LandingSection() {
           id="landing-heading"
           className="text-5xl md:text-7xl font-bold mb-6"
         >
-          RIPLYX
+          RIPGROUND
         </h1>
-        <p className="text-xl md:text-2xl text-slate-300 mb-8">
+        <p className="GeistMono text-xl md:text-2xl text-slate-300 mb-8 ">
           Connect, explore, and challenge others with the power of 3D.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">

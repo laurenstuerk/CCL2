@@ -14,7 +14,10 @@ module.exports = {
         primary: "hsl(var(--primary))",
         // etc...
       },
+       fontFamily: {
+        GeistMono: ['GeistMono', 'monospace'], // Match class name
+        Geist: ['Geist', 'sans-serif'],
+      },
     },
   },
-  plugins: ["daisyui"],
 };

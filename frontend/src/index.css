@@ -53,6 +53,10 @@
   --noise: 0;
 }
 
+.GeistMono{
+  font-family: GeistMono, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
 /* === Theme: Dark === */
 .theme-dark {
   --color-base-100: oklch(0% 0 0);

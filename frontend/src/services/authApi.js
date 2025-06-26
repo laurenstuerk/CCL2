@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { getAccessToken } from "../lib/authTokenStore";
 
 // const BASE_URL = "http://localhost:3000/api";
-const BASE_URL = "https://cc241049-10708.node.fhstp.cc/api";
+const BASE_URL = "https://ripground.onrender.com";
 
 const api = axios.create({
   baseURL: BASE_URL,
